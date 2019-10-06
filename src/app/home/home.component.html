@@ -1,0 +1,36 @@
+<label>Search</label>
+<input type="text" [(ngModel)]="searchTxt" class="form-control" name="searchTxt" placeholder="search name">
+
+<table *ngIf="data && data.hits" class="table table-striped" [mfData]="data.hits | search:searchTxt" #mf="mfDataTable" [mfRowsOnPage]="5">
+    <thead>
+    <tr>
+        <th style="width: 40%">
+            <mfDefaultSorter by="title" >Title</mfDefaultSorter>
+        </th>
+        <th style="width: 40%">
+            <mfDefaultSorter by="url">Url</mfDefaultSorter>
+        </th>
+        <th style="width: 10%">
+            <mfDefaultSorter by="created_at">Created At</mfDefaultSorter>
+        </th>
+        <th style="width: 10%">
+            <mfDefaultSorter by="author">Author</mfDefaultSorter>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of mf.data" (click)="show(item)">
+        <td class="text-justify">{{item.title}}</td>
+        <td class="text-justify">{{item.url}}</td>
+        <td class="text-right">{{item.created_at}}</td>
+        <td class="text-right">{{item.author}}</td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="4">
+            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+        </td>
+    </tr>
+    </tfoot>
+</table>
